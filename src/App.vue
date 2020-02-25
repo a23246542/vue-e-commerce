@@ -8,6 +8,22 @@
   </div>
 </template>
 
+<script>
+export default {
+    name:'App',
+    created(){
+        const api ='/api/vuefun/products';
+        //API 伺服器路徑
+        // 所申請的APIPath
+        this.$http.get(api).then((response)=>{
+            console.log(response.data);
+            
+        })
+    }
+}
+</script>
+
+
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

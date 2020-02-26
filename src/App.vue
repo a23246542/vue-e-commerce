@@ -23,7 +23,7 @@ export default {
     name:'App',
     component:home,
     created(){
-        console.log(process.env.VUE_APP_API);
+        console.log("process.env.VUE_APP_API");
         
 
         // const api ='/api/vuefun/products';

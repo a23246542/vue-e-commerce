@@ -9,6 +9,7 @@ import store from './store'
 
 Vue.config.productionTip = false
 Vue.use(axios,VueAxios);
+Vue.prototype.$http = axios;
 
 new Vue({
   router,

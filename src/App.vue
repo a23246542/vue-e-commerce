@@ -17,22 +17,29 @@
 </template>
 
 <script>
-import home from '@/views/Home.vue'
+// import home from '@/views/Home.vue' //這邊沒用到沒加入好像也沒怎樣
+import Vue from 'vue'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+Vue.use(axios,VueAxios);
+Vue.prototype.$http = axios;
+
+// import 'bootstrap' 不是寫在這
 
 export default {
     name:'App',
-    component:home,
+    // component:home,
     created(){
-        console.log("process.env.VUE_APP_API");
-        
+        console.log(process.env.VUE_APP_API,process.env.VUE_APP_CUSTOMAPI);
+        // console.log(process.env.VUE_APP_CUSTOMAPI);
 
-        // const api ='/api/vuefun/products';
-        // //API 伺服器路徑
-        // // 所申請的APIPath
-        // this.$http.get(api).then((response)=>{
-        //     console.log(response.data);
+        const api =`${process.env.VUE_APP_API}api/${process.env.VUE_APP_CUSTOMAPI}/products`;
+        //API 伺服器路徑
+        // 所申請的APIPath
+        this.$http.get(api).then((response)=>{
+            console.log(response.data);
             
-        // })
+        })
     }
 }
 </script>

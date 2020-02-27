@@ -12,6 +12,8 @@ Vue.config.productionTip = false
 Vue.use(axios,VueAxios);
 Vue.prototype.$http = axios;
 
+axios.defaults.withCredentials = true;
+
 new Vue({
   router,
   store,

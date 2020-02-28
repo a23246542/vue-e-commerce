@@ -31,16 +31,16 @@ export default {
     name:'App',
     // component:home,
     created(){
-        console.log(process.env.VUE_APP_API,process.env.VUE_APP_CUSTOMAPI);
-        // console.log(process.env.VUE_APP_CUSTOMAPI);
+        // console.log(process.env.VUE_APP_API,process.env.VUE_APP_CUSTOMAPI);
+        // // console.log(process.env.VUE_APP_CUSTOMAPI);
 
-        const api =`${process.env.VUE_APP_API}api/${process.env.VUE_APP_CUSTOMAPI}/products`;
-        //API 伺服器路徑
-        // 所申請的APIPath
-        this.$http.get(api).then((response)=>{
-            console.log(response.data);
+        // const api =`${process.env.VUE_APP_API}api/${process.env.VUE_APP_CUSTOMAPI}/products`;
+        // //API 伺服器路徑
+        // // 所申請的APIPath
+        // this.$http.get(api).then((response)=>{
+        //     console.log(response.data);
             
-        })
+        // })
     }
 }
 </script>

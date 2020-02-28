@@ -3,9 +3,15 @@ import VueRouter from 'vue-router'
 // ------------------------------
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
+// import Product from '../components/Product.vue'
 Vue.use(VueRouter)
 
-const routes = [{
+const routes = [
+    // {
+    //     path:'*',
+    //     redirect:'/login'
+    // },
+    {
         path: '/',
         name: 'Home',
         component: Home
@@ -16,7 +22,9 @@ const routes = [{
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import( /* webpackChunkName: "about" */ '../views/About.vue')
+        component: () => import( /* webpackChunkName: "about" */ '../views/About.vue'),
+        // meta:{requiresAuth:true},
+        meta: { requiresAuth: true },
     },
     {
         path: '/login',
@@ -27,6 +35,20 @@ const routes = [{
         path: '/logout',
         name: ':Logout',
         component: ()=> import('../views/Logout.vue')
+    },
+    {
+        path:'/admin',
+        name:'Dashboard',
+        component:() => import('../views/Dashboard.vue'),
+        children:[
+            {
+                path:'product',
+                name:'Product',
+                component:()=> import('../components/Product.vue'),
+                // component:Product
+                meta:{requiresAuth:true}
+            }
+        ] 
     }
 
 ]

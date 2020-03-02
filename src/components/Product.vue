@@ -1,6 +1,8 @@
 <template>
     <div>
         <!-- <p>123456</p> -->
+        <!-- <Loading :active.sync="false"></Loading> -->
+        <loading :active.sync="isLoading"></loading>
         <div class="mt-4 text-right">
             <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">新增產品</button> -->
             <button class="btn btn-primary" data-target="#productModal" @click="productModal(true)">新增產品</button>
@@ -73,6 +75,7 @@
                                         <i class="fas fa-spinner fa-spin"></i>
                                     </label>
                                     <input type="file" id="customFile" class="form-control" 
+                                    @change="upfileload()"
                                     ref="imgfiles">
                                 </div>
                                 <img img="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=828346ed697837ce808cae68d3ddc3cf&auto=format&fit=crop&w=1350&q=80"
@@ -186,13 +189,19 @@
 
 <script>
     import $ from 'jquery'; //!!
+    // -----
+    // import Loading from 'vue-loading-overlay';
+    // import 'vue-loading-overlay/dist/vue-loading.css';
+
+    // Vue.component('Loading',Loading);
 
     export default {
         data() {
             return {
                 products: [],
                 tempProduct: {},
-                isNew:false
+                isNew:false,
+                isLoading:false
             }
         },
         created() {
@@ -203,10 +212,13 @@
             getProduct() {
                 const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_CUSTOMAPI}/admin/products`;
                 const vm = this; //影片http之後才需要把const打開
+                vm.isLoading=true;
                 this.$http.get(api).then((response) => {
                     console.log(response.data);
                     if (response.data.success) {
+                        vm.isLoading=false;
                         vm.products = response.data.products;
+
                     }
                 })
             },
@@ -233,7 +245,6 @@
                     apiMethod="put"
                 }
 
-                api= `${process.env.VUE_APP_API}api/${process.env.VUE_APP_CUSTOMAPI}/admin/product/${vm.tempProduct.id}`;
                 // ------------------------------------------
                 // this.$http.post(api,{data:vm.tempProduct}).then((response)=>{
                 this.$http[apiMethod](api,{data:vm.tempProduct}).then((response)=>{
@@ -263,17 +274,40 @@
                     $('#delProductModal').modal('hide');
                     vm.getProduct();
                     console.log(response.data.message);
-
-
-                    // if(response.data.success){
-                        
+                    // if(response.data.success){                       
                     // }else{
-                    //     console.log(response.data.message);
+                    //     console.log(response.data.message);                       
+                    // }  
+                })    
+            },
+            upfileload(){
+                console.log(this);
+                // 這個this依然是vue元件
+                const imgdata = this.$refs.imgfiles.files[0];//!!refsssssss
+                const formData = new FormData();
+                formData.append("file-to-upload",imgdata);
+                // 如何怎麼呼叫vm api
+                // const api =`{process.env.VUE_APP_API}api/${process.env.VUE_APP_CUSTOMAPI}/admin/upload`;
+                const vm = this;
+                const api =`${process.env.VUE_APP_API}api/${process.env.VUE_APP_CUSTOMAPI}/admin/upload`;
+                this.$http.post(api,formData,{
+                    header:{
+                        // content_type:"multipart/form-data" 
+                        'Content_Type':"multipart/form-data" 
+                    }
+                }).then((response)=>{
+                     if(response.data.success){
+                        //  this.tempProduct.imageUrl = response.data.imageUrl
+                        // console.log(this.tempProduct);
+                        // console.log(vm.tempProduct);
                         
-                    // }
-                    
+                        // this.$set(this.tempProduct,"imageUrl",response.data.imageUrl);
+                        vm.$set(this.tempProduct,"imageUrl",response.data.imageUrl);
+                     }else{
+                        console.log(response.data.message);
+                        
+                     }
                 })
-                
             }
         }
     }

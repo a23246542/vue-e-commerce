@@ -46,7 +46,7 @@ export default {
                 
                 // if(response.success){
                 if(response.data.success){
-                    vm.$router.push('/logout')
+                    vm.$router.push('/admin/product')
                 }
             })
         }

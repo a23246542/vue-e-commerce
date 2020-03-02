@@ -19,11 +19,11 @@
 
 <script>
 // import home from '@/views/Home.vue' //這邊沒用到沒加入好像也沒怎樣
-import Vue from 'vue'
-import axios from 'axios'
-import VueAxios from 'vue-axios'
-Vue.use(axios,VueAxios);
-Vue.prototype.$http = axios;
+// import Vue from 'vue'
+// import axios from 'axios'
+// import VueAxios from 'vue-axios'
+// Vue.use(axios,VueAxios);
+// Vue.prototype.$http = axios;
 
 // import 'bootstrap' 不是寫在這
 

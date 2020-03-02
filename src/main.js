@@ -26,17 +26,20 @@ router.beforeEach((to,from,next)=>{
   // next(); //不加換頁會被擋下來
   // ----------------
   if(to.meta.requiresAuth){
-    // console.log('這裡需要驗證');
+    console.log('這裡需要驗證');
     // -------
     const api =`${process.env.VUE_APP_API}api/user/check`;
     // this.$http.post(api).then((Response)=>{
     axios.post(api).then((response)=>{
-      console.log(response.data);
+    //   console.log(response.data);
       
       if(response.data.success){
-        next()  
+        next()
+        console.log("已登入");
+          
       }else{
         // router.
+        console.log("未登入");
         next({
           path:'/login'
         })

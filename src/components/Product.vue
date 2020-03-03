@@ -161,7 +161,8 @@
             </div>
         </div>
         <!-- -------分頁 -->
-        <nav aria-label="Page navigation example">
+        <pagination :pagi=pagination @pagiemit='getProduct(currentPage)'></pagination>
+        <!-- <nav aria-label="Page navigation example">
             <ul class="pagination">
                 <li class="page-item"
                 :class="{'disabled':!pagination.has_pre}"
@@ -172,7 +173,7 @@
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
-                <!-- --------------------------------------------------------- -->
+               
                 <li class="page-item"
                 v-for="page in pagination.total_pages" 
                 :key = page
@@ -186,7 +187,7 @@
                     {{page}}
                     </a>
                 </li>
-                <!-- -------------------------------------------- -->
+                
                 <li class="page-item"
                 :class="{'disabled':!pagination.has_next}"
                 >
@@ -197,7 +198,7 @@
                     </a>
                 </li>
             </ul>
-        </nav>
+        </nav> -->
 
 
     </div>
@@ -210,8 +211,13 @@
     // import 'vue-loading-overlay/dist/vue-loading.css';
 
     // Vue.component('Loading',Loading);
+    // ---------
+    import pagination from './pagination';
 
     export default {
+        components:{
+            pagination,
+        },
         data() {
             return {
                 products: [],

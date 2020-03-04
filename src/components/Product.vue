@@ -161,7 +161,7 @@
             </div>
         </div>
         <!-- -------分頁 -->
-        <pagination :pagi=pagination @pagiemit='getProduct(currentPage)'></pagination>
+        <!-- <pagination :pagi=pagination @pagiemit='getProduct(currentPage)'></pagination> -->
         <!-- <nav aria-label="Page navigation example">
             <ul class="pagination">
                 <li class="page-item"
@@ -212,11 +212,11 @@
 
     // Vue.component('Loading',Loading);
     // ---------
-    import pagination from './pagination';
+    // import pagination from './pagination';
 
     export default {
         components:{
-            pagination,
+            // pagination,
         },
         data() {
             return {

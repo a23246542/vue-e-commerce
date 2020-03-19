@@ -242,8 +242,10 @@
                 // const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_CUSTOMAPI}/admin/products`;
                 const api =
                 `${process.env.VUE_APP_API}api/${process.env.VUE_APP_CUSTOMAPI}/admin/products?page=${page}`;
-                const vm = this; //影片http之後才需要把const打開
+                // `${process.env.VUE_APP_API}api/${process.env.VUE_APP_CUSTOMAPI}/admin/products/all`;
+                const vm = this; //影片http之後才需把const打開
                 vm.isLoading = true;
+                this.$http.defaults.withCredentials = true;
                 this.$http.get(api).then((response) => {
                     console.log(response.data);
                     if (response.data.success) {

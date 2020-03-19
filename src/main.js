@@ -29,7 +29,7 @@ new Vue({
 }).$mount('#app')
 
 router.beforeEach((to,from,next)=>{
-  console.log("to",to,'from',from,'next',next);
+//   console.log("to",to,'from',from,'next',next);
   // next(); //不加換頁會被擋下來
   // ----------------
   if(to.meta.requiresAuth){
@@ -41,12 +41,18 @@ router.beforeEach((to,from,next)=>{
     //   console.log(response.data);
       
       if(response.data.success){
+        
+        console.log(response.data);
         next()
-        console.log("已登入");
+        // next({
+        //     path:'admin/product'
+        // })
+        // console.log("已登入");
           
       }else{
         // router.
-        console.log("未登入");
+        console.log(response.data);
+        // console.log("未登入");
         next({
           path:'/login'
         })

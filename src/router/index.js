@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 // ------------------------------
-import Home from '../views/Home.vue'
+// import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 // import Product from '../components/Product.vue'
 Vue.use(VueRouter)
@@ -11,11 +11,11 @@ const routes = [
     //     path:'*',
     //     redirect:'/login'
     // },
-    {
-        path: '/',
-        name: 'Home',
-        component: Home
-    },
+    // {
+    //     path: '/',
+    //     name: 'Home',
+    //     component: Home
+    // },
     {
         path: '/about',
         name: 'About',
@@ -47,7 +47,55 @@ const routes = [
                 component:()=> import('../components/Product.vue'),
                 // component:Product
                 meta:{requiresAuth:true}
+            },
+            {
+                path:'coupons',
+                name:'Coupons',
+                component:() => import('../components/Coupons.vue'),
+                meta:{requiresAuth:true}
+            },
+            {
+                path:'orders',
+                name:'Orders',
+                component:() => import('../components/Orders.vue'),
+                meta:{requiresAuth:true}
             }
+        ] 
+    },
+    {
+        path:'/',//產品列表頁
+        // name:'Dashboard',
+        component:() => import('../views/Dashboard.vue'),
+        children:[
+            {
+                path:'',//沒寫就是預設(view這頁組件)
+                name:'frontDashboard',
+                components:{
+                    default:()=>import('../components/Product(front).vue'),//產品列表
+                    footer:()=>import('../components/CustomerOrder.vue')//購物車
+                },
+                // children:[
+                //     {
+                //         path:'customer_form',
+                //         name:'CustomerForm',
+                //         component:() => import('../components/CustomerForm.vue')//訂購表單
+                //         // components:{
+                //         //     footer:()=>import('../components/CustomerForm.vue')
+                //         // }
+
+                //     },
+                // ]
+            },
+            {
+                path:'customer_form',
+                name:'CustomerForm',
+                component:() => import('../components/CustomerForm.vue')//訂購表單
+            },
+            {
+                path:'customer_checkout/:orderId',//結帳完成頁
+                name:'CustomerCheckout',
+                component:() => import('../components/CustomerCheckout.vue')
+             }
         ] 
     }
 

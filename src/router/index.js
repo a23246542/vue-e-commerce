@@ -90,20 +90,20 @@ const routes = [
             {
                 path:'customer_form',
                 name:'CustomerForm',
-                // component:() => import('../components/CustomerForm.vue')//訂購表單
+                // component:()=>import('../components/CustomerForm.vue'),
                 components:{
-                        default:()=>import('../components/Product(front).vue'),
-                        footer:()=>import('../components/CustomerForm.vue')
-                }
+                    default:()=>import('../components/Product(front).vue'),//產品列表
+                    footer:()=>import('../components/CustomerForm.vue')//訂購表單
+                },
             },
             {
                 path:'customer_checkout/:orderId',//結帳完成頁
                 name:'CustomerCheckout',
-                // component:() => import('../components/CustomerCheckout.vue')
+                // component:()=>import('../components/CustomerCheckout.vue'),
                 components:{
-                    default:()=>import('../components/Product(front).vue'),
-                    footer:()=>import('../components/CustomerCheckout.vue')
-                }
+                    default:()=>import('../components/Product(front).vue'),//產品列表
+                    footer:()=>import('../components/CustomerCheckout.vue')//結帳
+                },
             }
         ] 
     }

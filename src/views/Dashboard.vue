@@ -6,7 +6,9 @@
             <div class="row">
                 <Sidebar></Sidebar>
                 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-                    <router-view></router-view>
+                    <keep-alive>
+                        <router-view></router-view>
+                    </keep-alive>
                     <router-view name="footer"></router-view>
                 </main>
             </div>

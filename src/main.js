@@ -18,7 +18,7 @@ Vue.config.productionTip = false
 // Vue.use(axios,VueAxios);
 // Vue.prototype.$http = axios;
 Vue.use(VueAxios,axios);//pulgin
-Vue.component('Loading',Loading);//組件方式
+Vue.component('Loading',Loading);//全域載入組件方式 就不用個別載入
 
 axios.defaults.withCredentials = true;
 

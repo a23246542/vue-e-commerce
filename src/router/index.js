@@ -69,9 +69,9 @@ const routes = [
         children:[
             {
                 path:'',//沒寫就是預設(view這頁組件)
-                name:'frontDashboard',
+                // name:'frontDashBoard',//!!有多個組件 把name拿掉 就不會出現匿名組建了
                 components:{
-                    default:()=>import('../components/ProductF2E.vue'),//產品列表
+                    default:()=>import('../components/CustomerProduct.vue'),//產品列表
                     footer:()=>import('../components/CustomerOrder.vue')//購物車
                 },
                 // children:[
@@ -92,7 +92,7 @@ const routes = [
                 name:'CustomerForm',
                 // component:()=>import('../components/CustomerForm.vue'),
                 components:{
-                    default:()=>import('../components/ProductF2E.vue'),//產品列表
+                    // default:()=>import('../components/ProductF2E.vue'),//產品列表
                     footer:()=>import('../components/CustomerForm.vue')//訂購表單
                 },
             },
@@ -101,7 +101,7 @@ const routes = [
                 name:'CustomerCheckout',
                 // component:()=>import('../components/CustomerCheckout.vue'),
                 components:{
-                    default:()=>import('../components/ProductF2E.vue'),//產品列表
+                    // default:()=>import('../components/ProductF2E.vue'),//產品列表
                     footer:()=>import('../components/CustomerCheckout.vue')//結帳
                 },
             }

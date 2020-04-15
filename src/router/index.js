@@ -70,6 +70,10 @@ const routes = [
             {
                 path:'',//沒寫就是預設(view這頁組件)
                 // name:'frontDashBoard',//!!有多個組件 把name拿掉 就不會出現匿名組建了
+                // props:{
+                //     default:{},
+                //     footer:{cart:}
+                // },
                 components:{
                     default:()=>import('../components/CustomerProduct.vue'),//產品列表
                     footer:()=>import('../components/CustomerOrder.vue')//購物車

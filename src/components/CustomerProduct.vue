@@ -28,7 +28,8 @@
                             ></i>
                             查看更多
                         </button>
-                        <button type="button" class="btn btn-outline-danger btn-sm ml-auto">
+                        <button type="button" class="btn btn-outline-danger btn-sm ml-auto"
+                        >
                             <i class="fas fa-spinner fa-spin"
                             v-if="item.id === status.loadingItem"
                             ></i>
@@ -38,7 +39,7 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -49,7 +50,8 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <img :src="product.image" class="img-fluid" alt="">
+                        <!-- <img :src="product.image" class="img-fluid" alt=""> -->
+                        <img src="https://picsum.photos/350/300" alt="" class="img-fluid">
                         <blockquote class="blockquote mt-3">
                             <p class="mb-0">{{ product.content }}</p>
                             <footer class="blockquote-footer text-right">{{ product.description }}</footer>
@@ -69,14 +71,18 @@
                         <div class="text-muted text-nowrap mr-3">
                             小計 <strong>{{ product.num * product.price }}</strong> 元
                         </div>
-                        <button type="button" class="btn btn-primary" @click="addtoCart(product.id, product.num)">
-                            <i class="fas fa-spinner fa-spin" ></i>
+                        <button type="button" class="btn btn-primary" 
+                        @click="addtoCart(product.id, product.num)"
+                        >
+                            <i class="fas fa-spinner fa-spin"
+                            v-if="product.id===status.loadingItem"
+                            ></i>
                             加到購物車
                         </button>
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
     </div>
 </template>
 
@@ -93,11 +99,13 @@
                     // loadingItem,
                     loadingItem:"",
                 },
+                cart:[]
 
             }
         },
         created() {
             this.getProducts();
+            this.getCart();
         },
         methods: {
             getProducts() {
@@ -127,10 +135,53 @@
                         // vm.isLoading = false;
                         vm.status.loadingItem ='';
                         // $('#productModal').show();寫這個沒用
+                        vm.product.num=1;//!這邊設定預設值
                         $('#productModal').modal('show');
+
                     }
                 })
-            }
+            },
+            addtoCart(id,qty=1){
+                const vm =this;
+                const url =`${process.env.VUE_APP_API}api/${process.env.VUE_APP_CUSTOMAPI}/cart`;
+                vm.status.loadingItem =id;
+                // const cart ={
+                //     data:{
+
+                //     }
+                // }
+                const cart = {
+                    // id,
+                    // qty
+                    product_id:id,
+                    qty
+                }
+                this.$http.post(url,{data:cart}).then((response)=>{//!
+                    if(response.data.success){
+                        console.log( response.data.message,response.data.data);//!
+                        vm.status.loadingItem ="";
+                        $('#productModal').modal('hide');
+                        vm.getCart();
+                    }
+                })
+            },
+            getCart(){
+                const vm = this;
+                const url =`${process.env.VUE_APP_API}api/${process.env.VUE_APP_CUSTOMAPI}/cart`;
+                this.$http.get(url).then((response)=>{
+                    // console.log(response.data);
+                    if(response.data.success){
+
+                        // vm.cart = response.data.data.carts;//!!少加s 跟data
+                        vm.cart = response.data.data;//!!少加s 跟data
+                        console.log(response.data.carts,vm.cart);
+                        this.$emit("cartpush",vm.cart);
+                        
+                    }
+                })
+            },
+
+
         },
     }
 </script>

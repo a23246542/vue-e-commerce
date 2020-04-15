@@ -7,9 +7,9 @@
                 <Sidebar></Sidebar>
                 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                     <!-- <keep-alive> -->
-                        <router-view></router-view>
+                        <router-view @cartpush="getCart"></router-view>
                     <!-- </keep-alive> -->
-                    <router-view name="footer"></router-view>
+                    <router-view name="footer" :cartpull="cart"></router-view>
                 </main>
             </div>
         </div>
@@ -27,6 +27,16 @@ export default {
         Sidebar,
         Alert
     },
+    data(){
+        return{
+            cart:{}
+        }
+    },
+    methods:{
+        getCart(cart){
+            this.cart = cart;
+        }
+    }
     
 }
 </script>

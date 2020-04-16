@@ -10,7 +10,7 @@
             </thead>
             <tbody>
                 <!-- <tr v-for="item in cart.carts"> -->
-                <tr v-for="item in cartdata.carts" :key="item.id">
+                <tr v-for="item in cartData.carts" :key="item.id">
                     <td class="align-middle">
                         <button type="button" class="btn btn-outline-danger btn-sm"
                           @click="delCart(item.id)"
@@ -43,11 +43,12 @@
             <tfoot>
                 <tr>
                     <td colspan="4" class="text-right">總計</td>
-                    <td class="text-right">{{ cartpull.total}}</td>
+                    <!-- <td class="text-right">{{ cartpull.total}}</td>刪除購物車的畫 用cartpull會拿到之前prop過時的數據 -->
+                    <td class="text-right">{{ cartData.total}}</td>
                 </tr>
-                <tr v-if="cartpull.final_total!=cartpull.total">
+                <tr v-if="cartData.final_total!=cartData.total">
                     <td colspan="4" class="text-right text-success">折扣價</td>
-                    <td class="text-right text-success">{{ cartpull.final_total}}</td>
+                    <td class="text-right text-success">{{ cartData.final_total}}</td>
                 </tr>
             </tfoot>
         </table>
@@ -67,12 +68,14 @@ export default {
     data(){
         return {
             // cartData:cartpull,
-            cartdata:this.cartpull,//!!!!子組件已經生成來不及獲取 難怪空的 data只會生成依次
+            cartData:this.cartpull,//!!!!子組件已經生成來不及獲取 難怪空的 data只會生成依次
+            carts:this.cartpull.carts//不寫也可以
         }
     },
     watch:{
         cartpull:function(newVal,oldVal){
-            this.cartdata = newVal;
+            this.cartData = newVal;
+            this.carts = newVal.carts;
         }
     },
     methods: {
@@ -83,23 +86,24 @@ export default {
             this.$http.delete(url).then((response)=>{
                 if (response.data.success) {
                     console.log(response.data.message);
-                    // vm.getCart();//!!發現購物車組件沒有getCart方法 只好重寫一遍
+                    vm.getCart();//!!發現購物車組件沒有getCart方法 只好重寫一遍
                 }
             })
         },
-        // getCart(){
-        //     const vm = this;
-        //     const url =`${process.env.VUE_APP_API}api/${process.env.VUE_APP_CUSTOMAPI}/cart`;
-        //     this.$http.get(url).then((response)=>{
-        //         // console.log(response.data);
-        //         if(response.data.success){
-        //             vm.cartData = response.data.data.carts;
-        //             // console.log(response.data.carts,vm.cart);
-        //             console.log(response.data.carts);
+        getCart(){
+            const vm = this;
+            const url =`${process.env.VUE_APP_API}api/${process.env.VUE_APP_CUSTOMAPI}/cart`;
+            this.$http.get(url).then((response)=>{
+                // console.log(response.data);
+                if(response.data.success){
+                    vm.cartData = response.data.data;
+                    vm.carts = response.data.data.carts;
+                    // console.log(response.data.carts,vm.cart);
+                    console.log("response.data.data",response.data.data);
                     
-        //         }
-        //     })
-        // },
+                }
+            })
+        },
     }
 }
 </script>

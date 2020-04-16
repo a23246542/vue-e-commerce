@@ -105,7 +105,7 @@
         },
         created() {
             this.getProducts();
-            this.getCart();
+            this.getCart();//getCart會先比較快出來
         },
         methods: {
             getProducts() {
@@ -130,14 +130,13 @@
                 this.$http.get(url).then((response) => {
                     // vm.isLoading=true;
                     if (response.data.success) {
-                        console.log(response);
+                        // console.log("getProduct.response111",response);
                         vm.product = response.data.product;
                         // vm.isLoading = false;
                         vm.status.loadingItem ='';
                         // $('#productModal').show();寫這個沒用
                         vm.product.num=1;//!這邊設定預設值
                         $('#productModal').modal('show');
-
                     }
                 })
             },
@@ -174,7 +173,8 @@
 
                         // vm.cart = response.data.data.carts;//!!少加s 跟data
                         vm.cart = response.data.data;//!!少加s 跟data
-                        console.log(response.data.carts,vm.cart);
+                        // console.log("vm.cart:"+vm.cart);//會變成字串!!
+                        console.log("vm.cart:",vm.cart);
                         this.$emit("cartpush",vm.cart);
                         
                     }

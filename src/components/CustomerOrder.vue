@@ -60,6 +60,10 @@
                 </button>
             </div>
         </div>
+        <button class="btn btn-info ml-auto">下一步</button>
+        <router-link :to="{path:'/customer_form'}" class="btn btn-info ml-auto">下一步</router-link>
+        <!-- <router-view></router-view>
+        <router-view name="footer"></router-view> -->
     </div>
 </template>
 <script>

@@ -9,6 +9,7 @@
                     <!-- <keep-alive> -->
                         <router-view @cartpush="getCart"></router-view>
                     <!-- </keep-alive> -->
+                    <router-view name="check"></router-view>
                     <router-view name="footer" :cartpull="cart"></router-view>
                 </main>
             </div>

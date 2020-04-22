@@ -101,8 +101,8 @@ const routes = [
                 },
             },
             {
-                // path:'customer_checkout/:orderId',//結帳完成頁
-                path:'customer_checkout',//結帳完成頁
+                path:'customer_checkout/:orderId',//結帳完成頁
+                // path:'customer_checkout',//結帳完成頁
                 name:'CustomerCheckout',
                 // component:()=>import('../components/CustomerCheckout.vue'),
                 components:{

@@ -55,3 +55,52 @@
         </form>
     </div>
 </template>
+<script>
+export default {
+    data(){
+        return{
+            orderId:'',
+            order:{
+                user:{
+
+                }
+            },
+            isLoading: false,
+        }
+    },
+    created() {
+        this.orderId = this.$router.params.orderId;
+        this.getOrder;
+        console.log(this.orderId);
+        
+    },
+    methods:{
+        getOrder(){
+            const vm = this;
+            const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/order/${vm.orderId}`;
+            vm.isLoading = true;
+            this.$http.post(url).then((response)=>{//雖然是post但是網址帶資料的方式過去
+                // if(response.data.success){
+                    
+                    // }//還是說then就代表成功不用判斷了
+                vm.order = response.data.order;
+                console.log(response.data);
+                vm.isLoading = false;
+                
+            })
+        },
+        payOrder(){
+            const vm = this;
+            const url =`${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/pay/${vm.orderId}`;
+            vm.isLoading = true;
+            this.$http.post(url).then((response)=>{
+                if(response.data.success){
+                    // vm.order.is_paid = true;//為什麼不要這樣就好了??
+                    vm.getOrder();
+                    vm.isLoading = false;
+                }
+            })
+        }
+    }
+}
+</script>

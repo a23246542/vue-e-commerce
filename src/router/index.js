@@ -38,14 +38,22 @@ const routes = [
     },
     {
         path:'/admin',
-        name:'Dashboard',
+        // name:'Dashboard',
         component:() => import('../views/Dashboard.vue'),
         children:[
             {
+                // path:'product',
+                path:'',
+                // name:'Product',
+                name:'Dashboard',
+                component:()=> import('../components/Product.vue'),
+                // component:Product
+                meta:{requiresAuth:true}
+            },
+            {//!原來這樣就好了 再創一個路徑 只是載入一樣的組件
                 path:'product',
                 name:'Product',
                 component:()=> import('../components/Product.vue'),
-                // component:Product
                 meta:{requiresAuth:true}
             },
             {
@@ -117,9 +125,14 @@ const routes = [
 ]
 
 const router = new VueRouter({
-    // mode: 'history',
-    base: process.env.BASE_URL,
-    routes
+    // mode: 'history',//h5历史模式
+    base: process.env.BASE_URL,//?忘記是什麼變數
+    routes,//等於如下
+    // routes:[{
+    //     path:'login',
+    //     name:'Login',
+    //     component:Login
+    // }]
 })
 
-export default router
+export default router //輸入

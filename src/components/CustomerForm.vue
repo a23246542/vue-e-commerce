@@ -69,17 +69,33 @@ export default {
             }
         }
     },
+    created() {
+        this.getCart();
+    },
     methods:{
+        getCart(){//測試一下遠端購物車到底有沒有東西
+            const vm = this;
+            const url =`${process.env.VUE_APP_API}api/${process.env.VUE_APP_CUSTOMAPI}/cart`;
+            this.$http.get(url).then((response)=>{
+                
+                if(response.data.success){
+                    
+                    console.log("購物車資料",response.data.data);
+                }
+            })
+        },
         createOrder(){
             const vm = this;
-            const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/order`;
+            const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_CUSTOMPATH}/order`;
             const order = vm.form;
             // vm.isLoading = true;
             console.log("1111");
             
             this.$http.post(url,{data:order}).then((response)=>{
+                console.log("####");
+                console.log(response.data);
+                
                 if(response.data.success){
-                    console.log("####");
                     console.log('訂單已建立',response.data);
                     // vm.order = order//把資料帶去下一頁 這邊不用存
                     vm.$router.push(`/customer_checkout/${response.data.order}`);

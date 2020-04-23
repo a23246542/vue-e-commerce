@@ -61,7 +61,7 @@ export default {
         return{
             orderId:'',
             order:{
-                user:{
+                user:{//@因為跨第二層了 會找不到 先寫好第二層user
 
                 }
             },
@@ -77,7 +77,7 @@ export default {
     methods:{
         getOrder(){
             const vm = this;
-            const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/order/${vm.orderId}`;
+            const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_CUSTOMPATH}/order/${vm.orderId}`;
             vm.isLoading = true;
             this.$http.post(url).then((response)=>{//雖然是post但是網址帶資料的方式過去
                 // if(response.data.success){
@@ -91,7 +91,7 @@ export default {
         },
         payOrder(){
             const vm = this;
-            const url =`${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/pay/${vm.orderId}`;
+            const url =`${process.env.VUE_APP_API}api/${process.env.VUE_APP_CUSTOMPATH}/pay/${vm.orderId}`;
             vm.isLoading = true;
             this.$http.post(url).then((response)=>{
                 if(response.data.success){

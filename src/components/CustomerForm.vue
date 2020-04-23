@@ -86,7 +86,7 @@ export default {
         },
         createOrder(){
             const vm = this;
-            const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_CUSTOMPATH}/order`;
+            const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_CUSTOMAPI}/order`;
             const order = vm.form;
             // vm.isLoading = true;
             console.log("1111");
@@ -98,7 +98,7 @@ export default {
                 if(response.data.success){
                     console.log('訂單已建立',response.data);
                     // vm.order = order//把資料帶去下一頁 這邊不用存
-                    vm.$router.push(`/customer_checkout/${response.data.order}`);
+                    vm.$router.push(`/customer_checkout/${response.data.orderId}`);
                     // vm.isLoading = false;
                 }
             })

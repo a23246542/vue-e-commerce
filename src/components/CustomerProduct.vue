@@ -62,7 +62,7 @@
                             <div class="h4" v-if="product.price">現在只要 {{ product.price }} 元</div>
                         </div>
                         <select name="" class="form-control mt-3" v-model="product.num">
-                            <option :value="num" v-for="num in 10" :key="num">
+                            <option v-bind:value="num" v-for="num in 10" :key="num">
                                 選購 {{num}} {{product.unit}}
                             </option>
                         </select>
@@ -94,7 +94,9 @@
             return {
                 products: [],
                 isLoading: false,
-                product:{},
+                product:{
+                    num:1,
+                },
                 status:{
                     // loadingItem,
                     loadingItem:"",

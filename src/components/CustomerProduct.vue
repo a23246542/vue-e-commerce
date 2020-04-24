@@ -29,12 +29,15 @@
                             查看更多
                         </button>
                         <button type="button" class="btn btn-outline-danger btn-sm ml-auto"
+                        @click="addtoCart(item.id)"
                         >
                             <i class="fas fa-spinner fa-spin"
                             v-if="item.id === status.loadingItem"
                             ></i>
                             加到購物車
                         </button>
+                        <!-- @click="addtoCart(item.id,1)" 連1都不用寫-->
+                        <!-- 粗心@click不要加錯位置 -->
                     </div>
                 </div>
             </div>
@@ -95,7 +98,7 @@
                 products: [],
                 isLoading: false,
                 product:{
-                    num:1,
+                    // num:1,
                 },
                 status:{
                     // loadingItem,
@@ -108,6 +111,8 @@
         created() {
             this.getProducts();
             this.getCart();//getCart會先比較快出來
+            console.log(this);
+            
         },
         methods: {
             getProducts() {
@@ -137,7 +142,9 @@
                         // vm.isLoading = false;
                         vm.status.loadingItem ='';
                         // $('#productModal').show();寫這個沒用
-                        vm.product.num=1;//!這邊設定預設值
+                        // vm.product.num=1;//!這邊設定預設值 ///!!!!原本沒有的資料結構不能直接
+                        // vm.$set(vm.data.product,'num',1);
+                        vm.$set(vm.product,'num',1);
                         $('#productModal').modal('show');
                     }
                 })

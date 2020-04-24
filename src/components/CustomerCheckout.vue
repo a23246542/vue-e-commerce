@@ -1,6 +1,6 @@
 <template>
     <div class="my-5 row justify-content-center">
-        <form class="col-md-6" @submit.prevent="payOrder">
+        <form class="col-md-6" @submit.prevent="payOrder()">
             <table class="table">
                 <thead>
                     <th>品名</th>
@@ -61,7 +61,7 @@ export default {
         return{
             orderId:'',
             order:{
-                user:{//@因為跨第二層了 會找不到 先寫好第二層user
+                user:{//@因為跨第二層了 模板會找不到 先寫好第二層user
 
                 }
             },
@@ -69,17 +69,21 @@ export default {
         }
     },
     created() {
-        this.orderId = this.$router.params.orderId;
-        this.getOrder;
+        // this.orderId = this.$router.params.orderId;//粗心 是route!!! 沒有router
+        this.orderId = this.$route.params.orderId;
+        // this.getOrder;!粗心 忘記家括號
+        this.getOrder();
         console.log(this.orderId);
         
     },
     methods:{
         getOrder(){
             const vm = this;
-            const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_CUSTOMPATH}/order/${vm.orderId}`;
+            const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_CUSTOMAPI}/order/${vm.orderId}`;
             vm.isLoading = true;
-            this.$http.post(url).then((response)=>{//雖然是post但是網址帶資料的方式過去
+            // 粗心 get方法寫錯!!!!! 回傳你所查詢api不存在
+            // this.$http.post(url).then((response)=>{//雖然是post但是網址帶資料的方式過去
+            this.$http.get(url).then((response)=>{//雖然是post但是網址帶資料的方式過去
                 // if(response.data.success){
                     
                     // }//還是說then就代表成功不用判斷了
@@ -91,7 +95,7 @@ export default {
         },
         payOrder(){
             const vm = this;
-            const url =`${process.env.VUE_APP_API}api/${process.env.VUE_APP_CUSTOMPATH}/pay/${vm.orderId}`;
+            const url =`${process.env.VUE_APP_API}api/${process.env.VUE_APP_CUSTOMAPI}/pay/${vm.orderId}`;
             vm.isLoading = true;
             this.$http.post(url).then((response)=>{
                 if(response.data.success){

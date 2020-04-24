@@ -46,7 +46,9 @@ export default {
                 
                 // if(response.success){
                 if(response.data.success){
-                    vm.$router.push('/admin/product')
+                    // vm.$router.push('/admin/product')//改成admin就好
+                    // vm.$bus.$emit('signin');//!發現不用加 跳頁重新加載驗證登入
+                    vm.$router.push('/admin')
                 }
             })
         }

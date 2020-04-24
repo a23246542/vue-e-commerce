@@ -89,11 +89,11 @@ export default {
             const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_CUSTOMAPI}/order`;
             const order = vm.form;
             // vm.isLoading = true;
-            console.log("1111");
+            console.log("觸發送出訂單");
             
             this.$http.post(url,{data:order}).then((response)=>{
-                console.log("####");
-                console.log(response.data);
+                console.log("API回應");
+                // console.log(response.data);
                 
                 if(response.data.success){
                     console.log('訂單已建立',response.data);

@@ -40,6 +40,7 @@ const routes = [
         path:'/admin',
         // name:'Dashboard',
         component:() => import('../views/Dashboard.vue'),
+        // meta:{requiresAuth:true},//看不會繼承/時測候不會 還是要個別加入
         children:[
             {
                 // path:'product',
@@ -116,7 +117,7 @@ const routes = [
                 components:{
                     default:()=>import('../components/CustomerProduct.vue'),//產品列表
                     check:()=>import('../components/CustomerCheckout.vue'),
-                    footer:()=>import('../components/test.vue')//結帳
+                    footer:()=>import('../components/back.vue')//結帳
                 },
             }
         ] 

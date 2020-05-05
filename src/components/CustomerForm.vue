@@ -3,14 +3,30 @@
         <div class="my-5 row justify-content-center">
             <form class="col-md-6">
             <h1>購物車表單</h1>
-                <div class="form-group">
+                 <ValidationProvider class="form-group" name="Email"
+                  rules="required|email"
+                  v-slot="{ failed, errors }"
+                  tag="div"
+                  >
+                  <label for="useremail" class="checkout-label">Email</label>
+                  <abbr title="必填" class="text-danger abbr-style">*</abbr>
+                  <input type="email" class="form-control" id="useremail"  name="email" placeholder="請輸入電子信箱"
+                    :class="{ 'is-invalid': failed }"
+                    v-model="form.user.email"
+                  />
+                  <div class="text-danger">
+                    {{ errors[0] }}
+                  </div>
+                </ValidationProvider>
+
+                <!-- <div class="form-group">
                     <label for="useremail">Email</label>
                     <input type="email" class="form-control" name="email" id="useremail" 
                         placeholder="請輸入 Email" required
-                    v-model="form.user.email"    
+                        v-model="form.user.email"    
                     >
                     <span class="text-danger"></span>
-                </div>
+                </div> -->
 
                 <div class="form-group">
                     <label for="username">收件人姓名</label>

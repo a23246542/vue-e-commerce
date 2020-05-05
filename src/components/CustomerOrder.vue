@@ -1,5 +1,6 @@
 <template>
     <div>
+        <loading :active.sync="isLoading"></loading>
         <table class="table">
             <thead>
                 <th></th>
@@ -71,6 +72,7 @@ export default {
     props: ['cartpull'],//其實可以直接用cartpull就好 但購物者刪除的畫 資料不能寫回去
     data(){
         return {
+            isLoading: false,
             // cartData:cartpull,
             cartData:this.cartpull,//!!!!子組件已經生成來不及獲取 難怪空的 data只會生成依次
             carts:this.cartpull.carts//不寫也可以
@@ -85,12 +87,15 @@ export default {
     methods: {
         delCart(id){
             console.log("delete");
+            // vm.isLoading = true;//粗心 順序!!! 這邊vm還讀不到
             const vm = this;
             const url =`${process.env.VUE_APP_API}api/${process.env.VUE_APP_CUSTOMAPI}/cart/${id}`;
+            vm.isLoading = true;
             this.$http.delete(url).then((response)=>{
                 if (response.data.success) {
                     console.log(response.data.message);
                     vm.getCart();//!!發現購物車組件沒有getCart方法 只好重寫一遍
+                    vm.isLoading = false;
                 }
             })
         },
